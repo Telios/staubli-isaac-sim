@@ -14,7 +14,7 @@ This repository contains the necessary files to run the NVIDIA Isaac Sim with th
 ## Prerequisites
 It is highly recommended to use a computer with a dedicated NVIDIA RTX GPU. Isaac Sim requires a powerful GPU to run smoothly. This repository was tested on a computer with an NVIDIA RTX 4090 with Ubuntu 22.04.
 
-Follow the installation guide for the NVIDIA Isaac Sim [here](https://docs.omniverse.nvidia.com/isaacsim/latest/installation/install_workstation.html). It is recommended to install the NVIDIA driver 525 or later.
+Follow the installation guide for the NVIDIA Isaac Sim [here](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/download.html). It is recommended to install the NVIDIA driver 525 or later.
 
 Install Docker from the official website [here](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository). This repository was tested with the Docker version 25.0.3 and Docker Compose version v2.24.6. Also make sure to follow the post-installation steps for Docker [here](https://docs.docker.com/engine/install/linux-postinstall/).
 
