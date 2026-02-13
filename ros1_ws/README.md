@@ -87,7 +87,10 @@ tmuxp load tmuxp_configs/yolov8_sim.yml
 
 For a quick look at how to install and use the moveit system, take a look at the following video (click to open):
 
-[![Stäubli TX2-60L ROS1 with Isaac Sim](https://img.youtube.com/vi/QRNFX1eb50c/0.jpg)](https://www.youtube.com/watch?v=QRNFX1eb50c)
+<div align="center">
+   <video src="https://github.com/user-attachments/assets/28f86546-d358-4b1a-9d29-2fd4a33d4200" controls width=70%></video>
+</div>
+
 ## Configuration
 ### Yolov8
 The Yolov8 model used in this repository only supports an input image size of 640x640 pixels. The image pipeline is configured to resize the input image to 640x640 pixels before the object detection.
