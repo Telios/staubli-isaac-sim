@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="robot_ip" doc="IP of controller" />
+ 
+
+  <rosparam command="load" file="$(find staubli_val3_driver)/config/joint_names.yaml" />
+
+  <include file="$(find staubli_val3_driver)/launch/robot_interface_streaming.launch">
+    <arg name="robot_ip"   value="$(arg robot_ip)" />
+    
+  </include>
+</launch>

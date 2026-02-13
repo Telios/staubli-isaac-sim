@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+
+  ros2_object_detection:
+    build:
+      context: ../
+      dockerfile: docker/ros2_object_detection.Dockerfile
+    network_mode: host
+    runtime: nvidia
+    ipc: host
+    pid: host
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    command: ros2 launch isaac_ros_yolov8 isaac_ros_yolov8_visualize.launch.py 
+      model_file_path:=/tmp/yolov8s.onnx engine_file_path:=/tmp/yolov8s.plan input_binding_names:=['images'] 
+      output_binding_names:=['output0'] network_image_width:=640 network_image_height:=640 
+      force_engine_update:=True image_mean:=[0.0,0.0,0.0] image_stddev:=[1.0,1.0,1.0] 
+      input_image_width:=640 input_image_height:=640 confidence_threshold:=0.25 nms_threshold:=0.45 
+      image_topic:=usb_cam/image_raw camera_info_topic:=usb_cam/camera_info
+
+
+  bridge:
+    build:
+      context: ../
+      dockerfile: docker/ros_nitros_bridge.Dockerfile
+    network_mode: host
+    ipc: host
+    pid: host
+    runtime: nvidia
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    command: ros2 launch isaac_ros_nitros_bridge_ros2 isaac_ros_image_converter.launch.py ros1_ws_path:=/ros1_ws pub_image_name:=usb_cam/image_raw sub_image_name:=yolov8_processed_image
+
+  ros1_camera:
+    build:
+      context: ../
+      dockerfile: docker/ros1.Dockerfile
+    network_mode: host
+    privileged: true # Required for USB access
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+    command: roslaunch usb_cam usb_cam.launch image_view:=false config_file:=yolov8.yml

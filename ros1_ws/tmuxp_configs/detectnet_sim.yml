@@ -1,0 +1,9 @@
+session_name: detectnet NITROS bridge sim
+
+root: ./
+windows:
+  - window_name: detectnet
+    layout: even-vertical
+    panes:
+      - cd ./docker && docker compose -f  detectnet_sim_compose.yml up --no-attach bridge
+      - 

@@ -1,0 +1,1 @@
+docker build -t ros_noetic -f docker/ros1.Dockerfile .

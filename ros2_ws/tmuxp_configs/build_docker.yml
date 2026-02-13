@@ -1,0 +1,10 @@
+session_name: build docker containers
+
+root: ./
+windows:
+  - window_name: build docker compose
+    layout: even-vertical
+    panes:
+      - cd docker/ && docker compose -f compose.yml build 
+      - docker build -f docker/ros1.Dockerfile -t ros_noetic .
+      -

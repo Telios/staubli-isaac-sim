@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  moveit2:
+    build:
+      context: ../
+      dockerfile: docker/ros2.Dockerfile
+    runtime: nvidia
+    network_mode: host
+    ipc: host
+    pid: host
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+    command: ros2 launch staubli_moveit_config demo.launch.py

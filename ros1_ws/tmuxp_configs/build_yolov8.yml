@@ -1,0 +1,12 @@
+session_name: build yolov8 docker containers
+
+root: ./
+windows:
+  - window_name: build docker compose
+    layout: even-vertical
+    shell_command_before:
+      - cd docker/
+    panes:
+      - docker compose -f yolov8_compose.yml build ros1_camera bridge
+      - DOCKER_BUILDKIT=0 docker compose -f yolov8_compose.yml build ros2_object_detection
+      -

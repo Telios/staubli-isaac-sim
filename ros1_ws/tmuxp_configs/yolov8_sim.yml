@@ -1,0 +1,9 @@
+session_name: yolov8 NITROS bridge sim
+
+root: ./
+windows:
+  - window_name: yolov8
+    layout: even-vertical
+    panes:
+      - cd ./docker && docker compose -f  yolov8_sim_compose.yml up --no-attach bridge
+      - 

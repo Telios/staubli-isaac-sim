@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: staubli_tx2_60_support
+    relative_path: urdf/tx2_60l.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/staubli_tx2_60l.srdf
+  CONFIG:
+    author_name: francesco
+    author_email: francesco.pace@tuwien.ac.at
+    generated_timestamp: 1644488470

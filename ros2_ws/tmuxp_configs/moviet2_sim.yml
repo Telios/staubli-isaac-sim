@@ -1,0 +1,11 @@
+session_name: launch moviet2 sim
+
+root: ./
+windows:
+  - window_name: moveit2
+    layout: even-vertical
+    shell_command_before:
+      - xhost local:root
+    panes:
+      - cd docker/ && docker compose -f compose.yml up
+      -

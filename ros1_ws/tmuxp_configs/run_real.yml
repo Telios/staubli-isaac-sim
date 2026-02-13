@@ -1,0 +1,11 @@
+session_name: run moveit on real robot
+
+root: ./
+windows:
+  - window_name: run_moveit_on_real
+    layout: even-vertical
+    shell_command_before:
+      - cd docker/ && xhost local:root
+    panes:
+      - docker compose -f real_compose.yml up
+      - 

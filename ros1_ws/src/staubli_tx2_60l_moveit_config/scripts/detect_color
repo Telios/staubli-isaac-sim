@@ -1,0 +1,60 @@
+import cv2
+import numpy as np
+import pyautogui
+
+# Inizializza la webcam
+cap = cv2.VideoCapture(0)
+
+# Inizializza le variabili
+roi_selected = False
+roi_start = (0, 0)
+roi_end = (0, 0)
+
+# Funzione per gestire gli eventi del mouse
+def mouse_callback(event, x, y, flags, param):
+
+    if event == cv2.EVENT_LBUTTONDOWN:
+        roi_start = (x, y)
+        roi_selected = True
+
+    elif event == cv2.EVENT_LBUTTONUP:
+        roi_end = (x, y)
+        roi_selected = False
+
+# Crea una finestra e collega la funzione di callback del mouse
+cv2.namedWindow('Webcam')
+cv2.setMouseCallback('Webcam', mouse_callback)
+
+while True:
+    # Legge un frame dalla webcam
+    ret, frame = cap.read()
+
+    # Disegna la ROI (Region of Interest) se è stata selezionata
+    if roi_selected:
+        cv2.rectangle(frame, roi_start, roi_end, (0, 255, 0), 2)
+
+    # Mostra il frame
+    cv2.imshow('Webcam', frame)
+
+    # Rileva la pressione del tasto 'p'
+    if cv2.waitKey(1) & 0xFF == ord('p'):
+        # Ritaglia l'area selezionata come ROI
+        roi = frame[roi_start[1]:roi_end[1], roi_start[0]:roi_end[0]]
+
+        # Rileva la pressione del tasto 'c'
+        if cv2.waitKey(0) & 0xFF == ord('c'):
+            # Calcola la media del colore nella ROI
+            average_color = np.mean(roi, axis=(0, 1))
+
+            # Converte la media del colore in formato esadecimale e RGB
+            average_color_hex = '#%02x%02x%02x' % tuple(map(int, average_color))
+            average_color_rgb = tuple(map(int, average_color))
+
+            # Stampa i risultati sulla console
+            print(f'Colore Medio (Hex): {average_color_hex}')
+            print(f'Colore Medio (RGB): {average_color_rgb}')
+
+# Rilascia le risorse quando si preme 'Esc'
+if cv2.waitKey(0) & 0xFF == 27:
+    cap.release()
+    cv2.destroyAllWindows()

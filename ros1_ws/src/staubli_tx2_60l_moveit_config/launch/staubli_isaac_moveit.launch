@@ -1,0 +1,28 @@
+<launch>
+  <param name="use_sim_time" value="true" />
+  <arg name="debug" default="false" />
+  <arg name="pipeline" default="ompl" />
+  <arg name="use_rviz" default="true" />
+  <arg name="use_gui" default="false" />
+
+  <include file="$(find staubli_tx2_60l_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <rosparam command="load" file="$(find staubli_tx2_60l_moveit_config)/config/joint_names.yaml"/>
+  
+  <include file="$(find staubli_tx2_60l_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="true"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="pipeline" value="$(arg pipeline)"  />
+  </include>
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find staubli_tx2_60l_moveit_config)/launch/moveit_rviz.launch" if="$(arg use_rviz)">
+    <arg name="rviz_config" value="$(find staubli_tx2_60l_moveit_config)/launch/moveit.rviz"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+</launch>

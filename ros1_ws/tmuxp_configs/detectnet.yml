@@ -1,0 +1,10 @@
+session_name: detectnet NITROS bridge
+
+root: ./
+windows:
+  - window_name: detectnet
+    layout: even-vertical
+    panes:
+      - cd ./docker && docker compose -f  detectnet_compose.yml up --no-attach bridge
+      - sleep 1 && bash docker/scripts/exec_image_view_ros1.sh
+      - 

@@ -1,0 +1,10 @@
+session_name: yolov8 NITROS bridge
+
+root: ./
+windows:
+  - window_name: yolov8
+    layout: even-vertical
+    panes:
+      - cd ./docker && docker compose -f  yolov8_compose.yml up --no-attach bridge
+      - sleep 5 && bash docker/scripts/exec_image_view_ros1.sh
+      - 
